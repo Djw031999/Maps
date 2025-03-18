@@ -12,20 +12,36 @@
                 zoom: 10
             });
 
-            var kmlUrl = "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/YOUR_FILE.kml";
+            var kmlUrl = "https://storage.googleapis.com/kml_files12121212/PabloRegion_VA.kmz"; // OR Signed URL
 
             var kmlLayer = new google.maps.KmlLayer({
                 url: kmlUrl,
+                suppressInfoWindows: false, // Set to true to hide info popups
+                preserveViewport: true,
                 map: map
             });
 
             kmlLayer.addListener("status_changed", function() {
-                console.log("KML Status:", kmlLayer.getStatus());
+                console.log("KML Layer Status: ", kmlLayer.getStatus());
+                if (kmlLayer.getStatus() !== "OK") {
+                    alert("Error loading KML: " + kmlLayer.getStatus());
+                }
             });
         }
     </script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+    </style>
 </head>
 <body onload="initMap()">
-    <div id="map" style="height: 500px; width: 100%;"></div>
+    <div id="map"></div>
 </body>
 </html>
